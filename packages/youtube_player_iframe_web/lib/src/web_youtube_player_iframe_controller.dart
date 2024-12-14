@@ -83,10 +83,13 @@ class WebYoutubePlayerIframeController extends PlatformWebViewController {
     final completer = Completer<String>();
     final subscription = window.onMessage.listen(
       (event) {
-        final data = jsonDecode(event.data.dartify() as String);
+        final jsonString = event.data.dartify()?.toString();
+        if (jsonString != null) {
+          final data = jsonDecode(jsonString);
 
-        if (data is Map && data.containsKey(key)) {
-          completer.complete(data[key].toString());
+          if (data is Map && data.containsKey(key)) {
+            completer.complete(data[key].toString());
+          }
         }
       },
     );
