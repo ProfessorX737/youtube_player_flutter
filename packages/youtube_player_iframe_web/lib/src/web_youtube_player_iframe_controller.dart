@@ -209,6 +209,8 @@ class YoutubePlayerIframeWeb extends PlatformWebViewWidget {
         if (channelParams != null) {
           window.onMessage.listen(
             (event) {
+              print('event.data: ${event.data}');
+              print('event.data.dartify(): ${event.data.dartify()}');
               final data = event.data.dartify()?.toString();
               if (data != null) {
                 channelParams.onMessageReceived(
