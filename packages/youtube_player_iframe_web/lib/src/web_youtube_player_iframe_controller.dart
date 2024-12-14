@@ -85,10 +85,14 @@ class WebYoutubePlayerIframeController extends PlatformWebViewController {
       (event) {
         final jsonString = event.data.dartify()?.toString();
         if (jsonString != null) {
-          final data = jsonDecode(jsonString);
+          try {
+            final data = jsonDecode(jsonString);
 
-          if (data is Map && data.containsKey(key)) {
-            completer.complete(data[key].toString());
+            if (data is Map && data.containsKey(key)) {
+              completer.complete(data[key].toString());
+            }
+          } catch (e) {
+            // ignore
           }
         }
       },
@@ -209,8 +213,6 @@ class YoutubePlayerIframeWeb extends PlatformWebViewWidget {
         if (channelParams != null) {
           window.onMessage.listen(
             (event) {
-              print('event.data: ${event.data}');
-              print('event.data.dartify(): ${event.data.dartify()}');
               final data = event.data.dartify()?.toString();
               if (data != null) {
                 channelParams.onMessageReceived(
