@@ -88,7 +88,8 @@ class YoutubePlayerEventHandler {
   /// See the [YouTube Help Center](https://support.google.com/youtube/answer/91449)
   /// for more information about factors that affect playback conditions or that might cause the event to fire.
   void onPlaybackQualityChange(Object data) {
-    controller.update(playbackQuality: data as String);
+    final playbackQuality = data.toString();
+    controller.update(playbackQuality: playbackQuality);
   }
 
   /// This event fires whenever the video playback rate changes.

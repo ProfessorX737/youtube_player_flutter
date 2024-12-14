@@ -167,10 +167,13 @@ class _RawYoutubePlayerState extends State<RawYoutubePlayer>
             ..addJavaScriptHandler(
               handlerName: 'PlaybackQualityChange',
               callback: (args) {
-                controller!.updateValue(
-                  controller!.value
-                      .copyWith(playbackQuality: args.first as String),
-                );
+                final playbackQuality = args.firstOrNull?.toString();
+                if (playbackQuality != null) {
+                  controller!.updateValue(
+                    controller!.value
+                        .copyWith(playbackQuality: playbackQuality),
+                  );
+                }
               },
             )
             ..addJavaScriptHandler(
