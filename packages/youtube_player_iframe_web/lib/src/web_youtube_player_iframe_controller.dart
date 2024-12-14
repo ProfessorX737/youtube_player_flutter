@@ -81,22 +81,21 @@ class WebYoutubePlayerIframeController extends PlatformWebViewController {
     final function = javaScript.replaceAll('"', '<<quote>>');
 
     final completer = Completer<String>();
-    final subscription = window.onMessage.listen(
-      (event) {
+    final subscription = window.onMessage.listen((event) {
+      try {
         final jsonString = event.data.dartify()?.toString();
+        print('jsonString: $jsonString');
         if (jsonString != null) {
-          try {
-            final data = jsonDecode(jsonString);
+          final data = jsonDecode(jsonString);
 
-            if (data is Map && data.containsKey(key)) {
-              completer.complete(data[key].toString());
-            }
-          } catch (e) {
-            // ignore
+          if (data is Map && data.containsKey(key)) {
+            completer.complete(data[key].toString());
           }
         }
-      },
-    );
+      } catch (e) {
+        // ignore
+      }
+    });
 
     _params.ytiFrame.runFunction(function, key: key);
 
@@ -213,11 +212,16 @@ class YoutubePlayerIframeWeb extends PlatformWebViewWidget {
         if (channelParams != null) {
           window.onMessage.listen(
             (event) {
-              final data = event.data.dartify()?.toString();
-              if (data != null) {
-                channelParams.onMessageReceived(
-                  JavaScriptMessage(message: data),
-                );
+              try {
+                final data = event.data.dartify()?.toString();
+                print('data: $data');
+                if (data != null) {
+                  channelParams.onMessageReceived(
+                    JavaScriptMessage(message: data),
+                  );
+                }
+              } catch (e) {
+                // ignore
               }
             },
           );
