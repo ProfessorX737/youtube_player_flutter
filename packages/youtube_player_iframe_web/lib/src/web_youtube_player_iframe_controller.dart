@@ -214,8 +214,8 @@ class YoutubePlayerIframeWeb extends PlatformWebViewWidget {
             (event) {
               try {
                 final data = event.data.dartify()?.toString();
-                print('data: $data');
                 if (data != null) {
+                  // TODO: this is throwing invalid json for some reason
                   channelParams.onMessageReceived(
                     JavaScriptMessage(message: data),
                   );
