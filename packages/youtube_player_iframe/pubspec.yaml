@@ -20,7 +20,7 @@ dependencies:
     git:
       url: https://github.com/ProfessorX737/youtube_player_flutter
       path: packages/youtube_player_iframe_web
-      ref: 1d031e6dfe6a41aea8dad756b7fd0ba3b51bcd3c
+      ref: d0866ae93fe2d7231947424ae684d0626d8411ae
 
 dev_dependencies:
   flutter_lints: ^5.0.0
