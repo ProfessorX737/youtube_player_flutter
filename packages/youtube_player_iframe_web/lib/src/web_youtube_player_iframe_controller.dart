@@ -84,7 +84,6 @@ class WebYoutubePlayerIframeController extends PlatformWebViewController {
     final subscription = window.onMessage.listen((event) {
       try {
         final jsonString = event.data.dartify()?.toString();
-        print('jsonString: $jsonString');
         if (jsonString != null) {
           final data = jsonDecode(jsonString);
 
